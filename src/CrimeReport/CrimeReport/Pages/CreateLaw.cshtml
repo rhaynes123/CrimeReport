@@ -1,0 +1,46 @@
+@page
+@model CrimeReport.Pages.CreateLawModel
+
+@{
+    ViewData["Title"] = "CreateLaw";
+}
+
+<h1>CreateLaw</h1>
+@{
+    string id = Guid.NewGuid().ToString();
+}
+<h4>Law</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Law.Id" class="control-label"></label>
+                <input asp-for="Law.Id" class="form-control" value="@id"/>
+                <span asp-validation-for="Law.Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Law.PartionKey" class="control-label"></label>
+                <input asp-for="Law.PartionKey" class="form-control" value="@id"/>
+                <span asp-validation-for="Law.PartionKey" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Law.Description" class="control-label"></label>
+                <input asp-for="Law.Description" class="form-control" />
+                <span asp-validation-for="Law.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

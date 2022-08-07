@@ -7,15 +7,15 @@ namespace CrimeReport.Features.Laws
 {
     public class GetAllLawsQueryHandler: IRequestHandler<GetAllLawsQuery, IList<Law>>
     {
-        private readonly CrimeDbContext _context;
-        public GetAllLawsQueryHandler(CrimeDbContext context)
+        private readonly IReadLawRepository _readLawRepository;
+        public GetAllLawsQueryHandler(IReadLawRepository readLawRepository)
         {
-            _context = context;
+            _readLawRepository = readLawRepository;
         }
 
         public async Task<IList<Law>> Handle(GetAllLawsQuery request, CancellationToken cancellationToken)
         {
-            return await _context.Laws.ToListAsync(cancellationToken);
+            return await _readLawRepository.GetAllAsync(cancellationToken:cancellationToken);
         }
     }
 }

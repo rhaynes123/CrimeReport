@@ -9,16 +9,17 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using CrimeReport.Data;
 using CrimeReport.Models;
 using CrimeReport.Features.Laws;
+using MediatR;
 
 namespace CrimeReport.Pages
 {
     public class CreateLawModel : PageModel
     {
-        private readonly CrimeReport.Data.CrimeDbContext _context;
+        private readonly IMediator _mediator;
 
-        public CreateLawModel(CrimeReport.Data.CrimeDbContext context)
+        public CreateLawModel(IMediator mediator)
         {
-            _context = context;
+            _mediator = mediator;
         }
 
         public IActionResult OnGet()
@@ -37,8 +38,12 @@ namespace CrimeReport.Pages
                 return Page();
             }
 
-            _context.Laws.Add(Law);
-            await _context.SaveChangesAsync();
+            Law savedLaw = await _mediator.Send(new CreateLawCommand(Law: Law));
+            if(savedLaw is null || savedLaw == default)
+            {
+                ModelState.AddModelError(string.Empty, "Law Could Not be Saved");
+                return Page();
+            }
 
             return RedirectToPage("./Index");
         }

@@ -18,6 +18,8 @@ string database = builder.Configuration["CosmosDb:DatabaseName"];
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.AddDbContext<CrimeDbContext>( options => options.UseCosmos(account, key,database));
 builder.Services.AddScoped<ICreateOrUpdateViolationRepository, CreateOrUpdateViolationRepository>();
+builder.Services.AddScoped<IReadLawRepository, ReadLawRepository>();
+builder.Services.AddScoped<ICreateOrUpdateLawsRepository, CreateOrUpdateLawsRepository>();
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration["Redis:Connection"];

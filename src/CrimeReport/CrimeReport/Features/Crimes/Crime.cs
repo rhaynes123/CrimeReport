@@ -3,10 +3,17 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using CrimeReport.Models.Interfaces;
 using CrimeReport.Models.Enums;
-namespace CrimeReport.Models
+using CrimeReport.Features.Laws;
+using CrimeReport.Features.Violations;
+
+namespace CrimeReport.Features.Crimes
 {
     public class Crime: ICosmosEntity
     {
+        public Crime()
+        {
+
+        }
         
         public Crime(TypeOfCrime typeOfCrime)
         {
@@ -26,8 +33,22 @@ namespace CrimeReport.Models
         public string Summary { get; set; } = default!;
         [Required, JsonPropertyName("typeOfCrime")]
         public TypeOfCrime TypeOfCrime { get; set; }
-        [Required, JsonPropertyName("lawsBroken")]
-        public IList<Law> LawsBroken { get; set; } = new List<Law>();
+        [Required, JsonPropertyName("laws")]
+        public List<string> Laws { get; private set; } = new List<string>();
+
+        public Crime AddViolation(Violation violation)
+        {
+            Laws.AddRange(violation.Laws);
+            return this;
+        }
+        public Crime AddViolations(IEnumerable<Violation> violations)
+        {
+            foreach (var violation in violations)
+            {
+                Laws.AddRange(violation.Laws);
+            }
+            return this;
+        }
     }
 }
 

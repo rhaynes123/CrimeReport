@@ -1,0 +1,48 @@
+@page
+@model CrimeReport.Pages.AllCrimesModel
+
+@{
+    ViewData["Title"] = "AllCrimes";
+}
+
+<h1>AllCrimes</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Crimes[0].Summary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Crimes[0].TypeOfCrime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Crimes[0].Laws)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Crimes) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Summary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeOfCrime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Laws)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

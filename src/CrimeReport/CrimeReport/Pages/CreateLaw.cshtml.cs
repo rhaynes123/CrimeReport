@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using CrimeReport.Data;
 using CrimeReport.Models;
+using CrimeReport.Features.Laws;
 
 namespace CrimeReport.Pages
 {

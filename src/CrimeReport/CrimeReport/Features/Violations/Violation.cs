@@ -1,13 +1,18 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using CrimeReport.Features.Laws;
 using CrimeReport.Models.Enums;
 using CrimeReport.Models.Interfaces;
 
-namespace CrimeReport.Models
+namespace CrimeReport.Features.Violations
 {
     public class Violation: ICosmosEntity
     {
+        public Violation()
+        {
+
+        }
         public Violation(TypeOfCrime typeOfCrime)
         {
             if (typeOfCrime == TypeOfCrime.NA)
@@ -16,7 +21,7 @@ namespace CrimeReport.Models
             }
             Id = Guid.NewGuid().ToString();
             TypeOfCrime = typeOfCrime;
-            PartionKey = nameof(typeOfCrime);
+            PartionKey = typeOfCrime.ToString();
         }
         [Required, JsonPropertyName("id")]
         public string Id { get; set; }
@@ -24,8 +29,8 @@ namespace CrimeReport.Models
         public string PartionKey { get; set; }
         [Required, JsonPropertyName("typeOfCrime")]
         public TypeOfCrime TypeOfCrime { get; set; }
-        [Required, JsonPropertyName("lawsBroken")]
-        public IList<Law> LawsBroken { get; set; } = new List<Law>();
+        [Required, JsonPropertyName("laws")]
+        public IList<string> Laws { get; set; } = new List<string>();
     }
 }
 

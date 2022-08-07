@@ -8,19 +8,19 @@
 <h1>AllLaws</h1>
 
 <p>
-    <a asp-page="Create">Create New</a>
+    <a asp-page="CreateLaw">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Law[0].Description)
+                @Html.DisplayNameFor(model => model.Laws[0].Description)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Law) {
+@foreach (var item in Model.Laws) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)

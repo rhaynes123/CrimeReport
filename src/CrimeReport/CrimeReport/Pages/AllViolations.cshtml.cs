@@ -7,25 +7,24 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using CrimeReport.Data;
-using CrimeReport.Features.Laws;
-using MediatR;
+using CrimeReport.Features.Violations;
 
 namespace CrimeReport.Pages
 {
-    public class AllLawsModel : PageModel
+    public class AllViolationsModel : PageModel
     {
-        private readonly IMediator _mediator;
+        private readonly CrimeReport.Data.CrimeDbContext _context;
 
-        public AllLawsModel(IMediator mediator)
+        public AllViolationsModel(CrimeReport.Data.CrimeDbContext context)
         {
-            _mediator = mediator;
+            _context = context;
         }
 
-        public IList<Law> Laws { get;set; }
+        public IList<Violation> Violation { get;set; }
 
         public async Task OnGetAsync()
         {
-            Laws = await _mediator.Send(new GetAllLawsQuery());
+            Violation = await _context.Violations.ToListAsync();
         }
     }
 }

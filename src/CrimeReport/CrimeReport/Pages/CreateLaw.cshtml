@@ -1,5 +1,6 @@
 @page
 @model CrimeReport.Pages.CreateLawModel
+@using Models
 
 @{
     ViewData["Title"] = "CreateLaw";
@@ -7,7 +8,7 @@
 
 <h1>CreateLaw</h1>
 @{
-    string id = Guid.NewGuid().ToString();
+    string id = new Identifier().New();
 }
 <h4>Law</h4>
 <hr />
